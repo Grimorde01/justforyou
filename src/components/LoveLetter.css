@@ -1,0 +1,297 @@
+#envelope {
+  position: relative;
+  width: 280px;
+  height: 180px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  margin-left: auto;
+  margin-right: auto;
+  top: 0;
+  background-color: #d9534f;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+#envelope.open {
+  overflow: visible;
+}
+
+.front {
+  position: absolute;
+  width: 0;
+  height: 0;
+  z-index: 3;
+}
+
+.click-here {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  z-index: 6;
+  font-family: 'Love By The King', cursive;
+  color: #ffffff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  text-align: center;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+  pointer-events: none;
+  transform-origin: center;
+  animation: minecraftZoom 1.2s ease-in-out infinite;
+}
+
+.open .click-here {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.close .click-here {
+  opacity: 1;
+  visibility: visible;
+}
+
+.flap {
+  border-left: 140px solid transparent;
+  border-right: 140px solid transparent;
+  border-bottom: 82px solid transparent;
+  border-top: 98px solid #d9534f;
+  transform-origin: top;
+  pointer-events: none;
+}
+
+.pocket {
+  border-left: 140px solid #f5a3a2;
+  border-right: 140px solid #f5a3a2;
+  border-bottom: 90px solid #ff6f61;
+  border-top: 90px solid transparent;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.letter {
+  position: relative;
+  background-color: #fff;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 160px;
+  top: 10px;
+  border-radius: 6px;
+  box-shadow: 0 2px 26px rgba(0, 0, 0, 0.12);
+  font-family: 'Love By The King';
+  user-select: none;
+  touch-action: none;
+  will-change: transform;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.letter-content {
+  position: relative;
+  padding: 15px 12px;
+  height: 100%;
+}
+
+.body-lines {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: 65%;
+  transform: translateY(-80%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.words {
+  font-family: 'Love By The King', cursive;
+  font-size: 0.95rem;
+  color: #2c2c2c;
+  margin-bottom: 8px;
+  text-align: left;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.words.line1 {
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.open .flap {
+  transform: rotateX(180deg);
+  transition: transform 0.4s ease, z-index 0.6s;
+  z-index: 1;
+}
+
+.close .flap {
+  transform: rotateX(0deg);
+  transition: transform 0.4s 0.6s ease, z-index 1s;
+  z-index: 5;
+}
+
+.close .letter {
+  transform: translateY(5px);
+  transition: transform 0.4s ease, z-index 1s, opacity 0.4s ease;
+  z-index: 1;
+  opacity: 1;
+}
+
+.open .letter {
+  transform: translateY(-100px);
+  transition: transform 0.4s 0.6s ease, z-index 0.6s, opacity 0.4s 0.6s;
+  z-index: 2;
+  opacity: 1;
+}
+
+.hearts {
+  position: absolute;
+  top: 90px;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.heart {
+  position: absolute;
+  bottom: 0;
+  pointer-events: none;
+  will-change: transform, top, left;
+}
+
+.heart:before,
+.heart:after {
+  position: absolute;
+  content: "";
+  left: 36px;
+  top: 0;
+  width: 36px;
+  height: 58px;
+  background: #e60073;
+  border-radius: 40px 40px 0 0;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+  pointer-events: none;
+}
+
+.heart:after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+
+.close .heart {
+  opacity: 1;
+}
+
+.a1 {
+  left: 20%;
+  transform: scale(0.5);
+  opacity: 1;
+  animation: slideUp 4s linear 1, sideSway 2s ease-in-out 4 alternate;
+  animation-fill-mode: forwards;
+  animation-delay: 0.7s;
+}
+
+.a2 {
+  left: 55%;
+  transform: scale(0.85);
+  opacity: 1;
+  animation: slideUp 5s linear 1, sideSway 4s ease-in-out 2 alternate;
+  animation-fill-mode: forwards;
+  animation-delay: 0.7s;
+}
+
+.a3 {
+  left: 10%;
+  transform: scale(0.65);
+  opacity: 1;
+  animation: slideUp 7s linear 1, sideSway 2s ease-in-out 6 alternate;
+  animation-fill-mode: forwards;
+  animation-delay: 0.7s;
+}
+
+@keyframes slideUp {
+  0% { bottom: 0; }
+  100% { bottom: 600px; }
+}
+
+@keyframes sideSway {
+  0% { transform: translateX(0) scale(var(--scale, 1)); }
+  100% { transform: translateX(var(--sway-distance)) scale(var(--scale, 1)); }
+}
+
+@keyframes minecraftZoom {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.25); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+.envelope-wrapper {
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0;
+}
+
+.love-letter-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(100vh - 6rem);
+  position: relative;
+}
+
+.pink-flowers {
+  position: absolute;
+  bottom: 28%;
+  left: 40%;
+  width: 20%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+@media (max-width: 768px) {
+  #envelope {
+    width: 220px;
+    height: 140px;
+  }
+
+  #envelope.open {
+    overflow: visible;
+  }
+
+  .flap {
+    border-left: 110px solid transparent;
+    border-right: 110px solid transparent;
+    border-bottom: 65px solid transparent;
+    border-top: 77px solid #d9534f;
+  }
+
+  .pocket {
+    border-left: 110px solid #f5a3a2;
+    border-right: 110px solid #f5a3a2;
+    border-bottom: 70px solid #ff6f61;
+    border-top: 70px solid transparent;
+  }
+
+  .words {
+    font-size: 0.85rem;
+  }
+
+  .words.line1 {
+    font-size: 0.5rem;
+  }
+
+  .words.line2,
+  .words.line3,
+  .words.line4,
+  .words.line5 {
+    font-size: 0.7rem;
+  }
+}

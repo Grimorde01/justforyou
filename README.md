@@ -1,15 +1,13 @@
 # Just For You - Valentine's Website
 
-A beautiful, interactive Valentine's Day website built with Vite, React, and TypeScript.
+A nice, interactive Valentine's website built with Vite, React, and TypeScript.
 
-## 🌹 Features
+## Features
 
 - **Love Letter Component** - Animated envelope with opening/closing animation
 - **Draggable Cards** - Interactive cards with images and messages that can be dragged around
 - **Mobile Responsive** - Fully optimized for desktop and mobile devices
 - **Touch Support** - Works seamlessly on touchscreen devices
-
-## 🚀 Quick Start
 
 ### Prerequisites
 - Node.js 16+ 
@@ -33,7 +31,7 @@ npm run preview
 
 The development server will start at `http://localhost:5173/`
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 src/
@@ -47,7 +45,7 @@ src/
 public/             - Static assets
 ```
 
-## 🛠️ Development
+## Development
 
 This project uses:
 - **React 19** - UI library
@@ -55,7 +53,7 @@ This project uses:
 - **Vite** - Fast build tool with HMR
 - **CSS** - Styling (no frameworks, plain CSS)
 
-## 📦 Deployment
+## Deployment
 
 This project is configured for easy deployment to Vercel:
 
@@ -63,7 +61,7 @@ This project is configured for easy deployment to Vercel:
 npm run build
 ```
 
-## 💝 Adding Content
+## Adding Content
 
 ### Create a Love Letter Component
 Create `src/components/LoveLetter.tsx` with envelope animation
@@ -74,6 +72,4 @@ Create `src/components/DraggableCard.tsx` with drag and touch support
 ### Add Images
 Place images in the `public/` folder and import them as needed
 
-## 📝 License
-
-Made with ❤️
+## License

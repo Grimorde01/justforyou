@@ -1,10 +1,11 @@
 import './App.css'
+import LoveLetter from './components/LoveLetter'
 
 function App() {
   return (
     <div className="app">
-      <h1>Just For You</h1>
-      {/* Love letter, draggable cards, and other content go here */}
+      <h1>Surprise! &lt;3</h1>
+      <LoveLetter />
     </div>
   )
 }
