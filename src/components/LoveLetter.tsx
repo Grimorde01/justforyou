@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import './LoveLetter.css';
-import { letterContent } from '../data/letterContent';
+import { letterContent } from '../data/text';
+import { loveLetterText } from '../data/text';
 import pinkFlowers from '../assets/pink_flowers.png';
 
 export default function LoveLetter() {
@@ -82,7 +83,7 @@ export default function LoveLetter() {
           onClick={handleEnvelopeClick}
           onTouchStart={handleEnvelopeClick}
         >
-          <div className="click-here">Click me!</div>
+          <div className="click-here">{loveLetterText.clickMe}</div>
           <div className="front flap"></div>
           <div className="front pocket"></div>
           <div className="letter">
@@ -103,7 +104,7 @@ export default function LoveLetter() {
             <div className="heart a3"></div>
           </div>
         </div>
-      <img src={pinkFlowers} alt="pink flowers" className="pink-flowers" />
+      <img src={pinkFlowers} alt={loveLetterText.pinkFlowersAlt} className="pink-flowers" />
       </div>
     </div>
   );
