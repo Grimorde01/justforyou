@@ -2,6 +2,23 @@ import React, { useEffect, useRef } from 'react';
 import './DragItem.css';
 
 let highestZ = 1000;
+let highestZInitialized = false;
+
+function computeHighestZFromDOM() {
+  try {
+    let max = highestZ;
+    const nodes = document.querySelectorAll('*');
+    nodes.forEach((n) => {
+      const z = window.getComputedStyle(n as Element).zIndex;
+      const zi = parseInt(z as string, 10);
+      if (!Number.isNaN(zi)) max = Math.max(max, zi);
+    });
+    highestZ = max;
+  } catch (e) {
+
+  }
+  highestZInitialized = true;
+}
 
 interface Props {
   className?: string;
@@ -30,8 +47,6 @@ const DragItem: React.FC<Props> = ({ className = '', children, style }) => {
     const el = elRef.current;
     if (!el) return;
 
-    const providedLeft = style && (style as any).left != null;
-    const providedTop = style && (style as any).top != null;
     currentPaperX.current = 0;
     currentPaperY.current = 0;
     el.style.transform = `translateX(0px) translateY(0px) rotateZ(${rotation.current}deg)`;
@@ -94,6 +109,16 @@ const DragItem: React.FC<Props> = ({ className = '', children, style }) => {
     if (holding.current) return;
     holding.current = true;
 
+    if (!highestZInitialized) {
+
+      try {
+        const providedZ = style?.zIndex;
+        const pz = Number(providedZ);
+        if (!Number.isNaN(pz)) highestZ = Math.max(highestZ, pz);
+      } catch {}
+      computeHighestZFromDOM();
+    }
+
     el.style.zIndex = String(++highestZ);
 
     if (e.button === 0) {
@@ -104,8 +129,14 @@ const DragItem: React.FC<Props> = ({ className = '', children, style }) => {
     }
     if (e.button === 2) {
       rotating.current = true;
+      mouseTouchX.current = e.clientX;
+      mouseTouchY.current = e.clientY;
+      prevMouseX.current = e.clientX;
+      prevMouseY.current = e.clientY;
     }
-    try { (e.target as Element).setPointerCapture?.(e.pointerId); } catch {}
+    try {
+      (e.target as Element).setPointerCapture?.(e.pointerId);
+    } catch (_err) {}
   };
 
   return (

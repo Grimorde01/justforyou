@@ -1,7 +1,7 @@
 import './App.css'
 import LoveLetter from './components/LoveLetter'
 import DragItem from './components/DragItem'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import img1 from './assets/1st.png'
 import img2 from './assets/2nd.png'
 import img3 from './assets/3rd.png'
@@ -25,38 +25,23 @@ function App() {
       <LoveLetter />
 
       <div className="drag-demo" style={{ width: '720px', height: '420px', position: 'relative' }}>
-        <DragItem className="image" style={{ left: '250px', top: '-500px', zIndex: randomizedZ[0] }}>
-          <div>
-            <div className="image-wrap">
-              <img src={img1} alt="img1" />
-            </div>
-            {dragItems[0]?.text && <p>{dragItems[0].text}</p>}
-          </div>
-        </DragItem>
-        <DragItem className="image" style={{ left: '250px', top: '-500px', zIndex: randomizedZ[1] }}>
-          <div>
-            <div className="image-wrap">
-              <img src={img2} alt="img2" />
-            </div>
-            {dragItems[1]?.text && <p>{dragItems[1].text}</p>}
-          </div>
-        </DragItem>
-        <DragItem className="image" style={{ left: '250px', top: '-500px', zIndex: randomizedZ[2] }}>
-          <div>
-            <div className="image-wrap">
-              <img src={img3} alt="img3" />
-            </div>
-            {dragItems[2]?.text && <p>{dragItems[2].text}</p>}
-          </div>
-        </DragItem>
-        <DragItem className="image" style={{ left: '250px', top: '-500px', zIndex: randomizedZ[3] }}>
-          <div>
-            <div className="image-wrap">
-              <img src={img4} alt="img4" />
-            </div>
-            {dragItems[3]?.text && <p>{dragItems[3].text}</p>}
-          </div>
-        </DragItem>
+        {(() => {
+          const images = [img1, img2, img3, img4];
+          return dragItems.map((item, i) => (
+            <DragItem
+              key={item.id}
+              className={item.className || 'image'}
+              style={{ left: '250px', top: '-500px', zIndex: randomizedZ[i] }}
+            >
+              <div>
+                <div className="image-wrap">
+                  <img src={images[i]} alt={item.id} />
+                </div>
+                {item.text && <p>{item.text}</p>}
+              </div>
+            </DragItem>
+          ));
+        })()}
       </div>
     </div>
   )
