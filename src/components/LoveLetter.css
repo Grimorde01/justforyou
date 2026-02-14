@@ -30,9 +30,10 @@
 
 .click-here {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(1);
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 6;
   font-family: 'Love By The King', Georgia, serif;
   font-weight: 700;
@@ -46,6 +47,8 @@
   pointer-events: none;
   transform-origin: center;
   animation: minecraftZoom 1.2s ease-in-out infinite;
+  animation-fill-mode: both;
+  will-change: transform;
 }
 
 .click-here { opacity: 0; visibility: hidden; }
@@ -252,9 +255,13 @@
 }
 
 @keyframes minecraftZoom {
-  0% { transform: translate(-50%, -50%) scale(1); }
-  50% { transform: translate(-50%, -50%) scale(1.25); }
-  100% { transform: translate(-50%, -50%) scale(1); }
+  0% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+.close .click-here {
+  animation: minecraftZoom 1.2s ease-in-out infinite;
 }
 
 .envelope-wrapper {
