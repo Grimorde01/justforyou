@@ -35,7 +35,15 @@ The development server will start at `http://localhost:5173/`
 
 ```
 src/
-├── components/       - Reusable React components
+├── assets/          - Images and font files
+├── components/      - Reusable React components
+│   ├── LoveLetter.tsx
+│   ├── LoveLetter.css
+│   ├── DragItem.tsx
+│   ├── DragItem.css
+│   └── Container.tsx
+├── data/            - Content and text data
+│   └── text.ts
 ├── pages/           - Page components (for future use)
 ├── types/           - TypeScript type definitions
 ├── App.tsx          - Main app component

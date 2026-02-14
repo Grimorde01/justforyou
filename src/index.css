@@ -1,8 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Love+By+The+King&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Zeyada&display=swap');
+@font-face {
+  font-family: 'Love By The King';
+  src: url('./assets/LovedbytheKing-Regular.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
-  font-family: 'Dancing Script', cursive, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 

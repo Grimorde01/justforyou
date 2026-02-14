@@ -6,13 +6,22 @@ import pinkFlowers from '../assets/pink_flowers.png';
 
 export default function LoveLetter() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 480);
   const heartsRef = useRef<HTMLDivElement | null>(null);
 
   const prevOpenRef = useRef<boolean>(false);
   const MAX_GENERATED_HEARTS = 80;
 
   useEffect(() => {
-    // only generate when transitioning from closed -> open
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 480);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
     if (isOpen && !prevOpenRef.current) {
       generateHearts(3);
     }
@@ -26,40 +35,32 @@ export default function LoveLetter() {
     if (existingGenerated >= MAX_GENERATED_HEARTS) return;
     const allowed = Math.min(count, MAX_GENERATED_HEARTS - existingGenerated);
     const rect = container.getBoundingClientRect();
-    const containerWidth = rect.width || 280; // fallback
-    const HEART_SAFETY = 20; // px margin so heart graphic won't clip
+    const containerWidth = rect.width || 280;
+    const HEART_SAFETY = 20;
     for (let i = 0; i < allowed; i++) {
       const el = document.createElement('div');
       el.className = 'heart generated';
 
-      // choose an initial X in px within safe bounds (10% - 90%)
       const minX = containerWidth * 0.1;
       const maxX = containerWidth * 0.5;
       let initPx = minX + Math.random() * (maxX - minX);
 
-      // determine max allowed sway so heart won't end up outside container
       const maxSwayLeft = initPx - HEART_SAFETY;
       const maxSwayRight = containerWidth - initPx - HEART_SAFETY;
       const maxSwayAllowed = Math.max(5, Math.min(20, Math.min(maxSwayLeft, maxSwayRight)));
 
-      // random sway distance within allowed range
       const sway = ((Math.random() * 2 - 1) * maxSwayAllowed).toFixed(1) + 'px';
       el.style.setProperty('--sway-distance', sway);
 
-      // place by px so calculations are stable
       el.style.left = `${Math.round(initPx)}px`;
 
-      // random scale (stored in CSS var so animations can include it)
       const scale = (0.5 + Math.random() * 0.5).toFixed(2);
       el.style.setProperty('--scale', scale);
-      // random upward duration and sway duration
-      const upDur = (3 + Math.random() * 4).toFixed(2); // 3-7s
-      const swayDur = (2 + Math.random() * 4).toFixed(2); // 2-6s
-      // set combined animation (slideUp once, sideSway infinite alternate)
+
+      const upDur = (3 + Math.random() * 4).toFixed(2);
+      const swayDur = (2 + Math.random() * 4).toFixed(2);
       el.style.animation = `slideUp ${upDur}s linear 1, sideSway ${swayDur}s ease-in-out infinite alternate`;
-      // ensure hearts start at bottom of container
       el.style.bottom = '0px';
-      // remove generated heart after its upward animation completes
       el.addEventListener('animationend', (ev) => {
         if ((ev as AnimationEvent).animationName === 'slideUp') {
           el.remove();
@@ -69,9 +70,8 @@ export default function LoveLetter() {
     }
   }
 
-  // Toggle envelope open/closed
   const handleEnvelopeClick = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prev) => !prev);
   };
 
   return (
@@ -83,7 +83,7 @@ export default function LoveLetter() {
           onClick={handleEnvelopeClick}
           onTouchStart={handleEnvelopeClick}
         >
-          <div className="click-here">{loveLetterText.clickMe}</div>
+          <div className="click-here">{isMobile ? 'Swipe me!' : loveLetterText.clickMe}</div>
           <div className="front flap"></div>
           <div className="front pocket"></div>
           <div className="letter">
@@ -98,11 +98,7 @@ export default function LoveLetter() {
               </div>
             </div>
           </div>
-          <div className="hearts" ref={heartsRef}>
-            <div className="heart a1"></div>
-            <div className="heart a2"></div>
-            <div className="heart a3"></div>
-          </div>
+          <div className="hearts" ref={heartsRef}></div>
         </div>
       <img src={pinkFlowers} alt={loveLetterText.pinkFlowersAlt} className="pink-flowers" />
       </div>
