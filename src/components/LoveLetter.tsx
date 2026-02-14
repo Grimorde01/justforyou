@@ -6,10 +6,20 @@ import pinkFlowers from '../assets/pink_flowers.png';
 
 export default function LoveLetter() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 480);
   const heartsRef = useRef<HTMLDivElement | null>(null);
 
   const prevOpenRef = useRef<boolean>(false);
   const MAX_GENERATED_HEARTS = 80;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 480);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     if (isOpen && !prevOpenRef.current) {
@@ -61,7 +71,7 @@ export default function LoveLetter() {
   }
 
   const handleEnvelopeClick = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prev) => !prev);
   };
 
   return (
@@ -73,7 +83,7 @@ export default function LoveLetter() {
           onClick={handleEnvelopeClick}
           onTouchStart={handleEnvelopeClick}
         >
-          <div className="click-here">{loveLetterText.clickMe}</div>
+          <div className="click-here">{isMobile ? 'Swipe me!' : loveLetterText.clickMe}</div>
           <div className="front flap"></div>
           <div className="front pocket"></div>
           <div className="letter">

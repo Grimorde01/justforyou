@@ -333,7 +333,6 @@
     width: min(400px, 70vw);
     left: 50%;
     transform: translateX(-50%) rotate(180deg);
-    bottom: 28%;
   }
 
 
@@ -341,9 +340,6 @@
     height: 100vh;
     overflow-x: hidden;
     overflow-y: hidden;
-  }
-  html, body, #root {
-    overflow-x: hidden;
   }
 }
 
@@ -358,20 +354,6 @@
     transform: translateX(-50%) rotate(180deg);
     bottom: 28%;
     top: 59%;
-  }
-
-  .click-here {
-    color: transparent;
-  }
-
-  .click-here::after {
-    content: "Swipe me!";
-    color: #ffffff;
-    position: absolute;
-    left: 51%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
   }
 }
 
