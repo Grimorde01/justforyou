@@ -80,4 +80,12 @@ Create `src/components/DraggableCard.tsx` with drag and touch support
 ### Add Images
 Place images in the `public/` folder and import them as needed
 
+## Credits
+
+### Icons
+<a href="https://www.flaticon.com/free-icons/red" title="red icons">Red icons created by Sudowoodo - Flaticon</a>
+
+### Example Images
+The example pictures used in this project are from the game *Reverse 1999*.
+
 ## License
