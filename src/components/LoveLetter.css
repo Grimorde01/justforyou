@@ -10,9 +10,14 @@
   background-color: #d9534f;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   cursor: pointer;
+  overflow: hidden;
 }
 
 #envelope.open {
+  overflow: visible;
+}
+
+#envelope.close {
   overflow: visible;
 }
 
@@ -29,11 +34,13 @@
   left: 50%;
   transform: translate(-50%, -50%) scale(1);
   z-index: 6;
-  font-family: 'Love By The King', cursive;
+  font-family: 'Love By The King', Georgia, serif;
+  font-weight: 700;
+  text-shadow: 0.3px 0 currentColor, -0.3px 0 currentColor;
   color: #ffffff;
   padding: 6px 10px;
   border-radius: 6px;
-  font-size: 0.95rem;
+  font-size: 1rem;
   text-align: center;
   transition: opacity 0.25s ease, visibility 0.75s ease;
   pointer-events: none;
@@ -78,11 +85,14 @@
   width: 90%;
   margin-left: auto;
   margin-right: auto;
-  height: 160px;
+  height: 240px;
+  max-height: none;
   top: 10px;
-  border-radius: 6px;
+  border-radius: 2px;
   box-shadow: 0 2px 26px rgba(0, 0, 0, 0.12);
-  font-family: 'Love By The King';
+  font-family: 'Love By The King', Georgia, serif;
+  font-weight: 700;
+  text-shadow: 0.25px 0 currentColor, -0.25px 0 currentColor;
   user-select: none;
   touch-action: none;
   will-change: transform;
@@ -93,23 +103,32 @@
   position: relative;
   padding: 15px 12px;
   height: 100%;
+  overflow: auto;
 }
 
 .body-lines {
-  position: absolute;
-  left: 12px;
-  right: 12px;
-  top: 65%;
-  transform: translateY(-80%);
+  position: relative;
+  left: auto;
+  right: auto;
+  top: auto;
+  transform: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  margin-top: 8px;
+}
+
+@media (max-width: 480px) {
+  .letter {
+    height: 160px;
+  }
 }
 
 .words {
-  font-family: 'Love By The King', cursive;
-  font-size: 0.95rem;
+  font-family: 'Love By The King', Georgia, serif;
+  font-weight: 700;
+  font-size: 1rem;
   color: #2c2c2c;
   margin-bottom: 8px;
   text-align: left;
@@ -118,7 +137,7 @@
 }
 
 .words.line1 {
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   margin-bottom: 12px;
   text-align: left;
 }
@@ -131,14 +150,14 @@
 
 .close .flap {
   transform: rotateX(0deg);
-  transition: transform 0.4s 0.6s ease, z-index 1s;
+  transition: transform 0.4s ease 0.4s, z-index 0.9s ease;
   z-index: 5;
 }
 
 .close .letter {
   transform: translateY(5px);
   transition: transform 0.4s ease, z-index 1s, opacity 0.4s ease;
-  z-index: 1;
+  z-index: 2;
   opacity: 1;
 }
 
@@ -194,9 +213,13 @@
   opacity: 1;
 }
 
+.close .hearts {
+  z-index: 6;
+}
+
 .open .a1 {
   left: 20%;
-  transform: scale(0.5);
+  transform: scale(0.85);
   animation: slideUp 4s linear 1, sideSway 2s ease-in-out 4 alternate;
   animation-fill-mode: forwards;
   animation-delay: 0.7s;
@@ -249,16 +272,20 @@
   justify-content: center;
   width: 100%;
   min-height: calc(100vh - 6rem);
+  padding-top: 20rem;
   position: relative;
 }
 
 .pink-flowers {
   position: absolute;
-  bottom: 28%;
-  left: 40%;
-  width: 20%;
+  bottom: 16%;
+  left: 35%;
+  width: 30%;
+  max-width: 450px;
   pointer-events: none;
   z-index: 5;
+  transform: rotate(180deg);
+  transform-origin: center;
 }
 
 @media (max-width: 768px) {
@@ -290,7 +317,9 @@
   }
 
   .words.line1 {
-    font-size: 0.5rem;
+    font-size: 0.7rem;
+    margin-bottom: 12px;
+    text-align: left;
   }
 
   .words.line2,
@@ -299,4 +328,55 @@
   .words.line5 {
     font-size: 0.7rem;
   }
+
+  .pink-flowers {
+    width: min(400px, 70vw);
+    left: 50%;
+    transform: translateX(-50%) rotate(180deg);
+    bottom: 28%;
+  }
+
+
+  html, body, #root {
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+  html, body, #root {
+    overflow-x: hidden;
+  }
+}
+
+@media (max-width: 480px) {
+  .words.line1 {
+    font-size: 1rem;
+  }
+
+  .pink-flowers {
+    width: min(400px, 80vw);
+    left: 50%;
+    transform: translateX(-50%) rotate(180deg);
+    bottom: 28%;
+    top: 59%;
+  }
+
+  .click-here {
+    color: transparent;
+  }
+
+  .click-here::after {
+    content: "Swipe me!";
+    color: #ffffff;
+    position: absolute;
+    left: 51%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+}
+
+html, body, #root {
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
